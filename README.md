@@ -96,7 +96,7 @@ http://localhost
 ---
 
 ## Créditos
-Desarrollado por **CaféFusión** - 2025. Todos los derechos reservados.
+Desarrollado por **Diego Lavallade** para **CaféFusión** - 2025. Todos los derechos reservados.
 
 ---
 
