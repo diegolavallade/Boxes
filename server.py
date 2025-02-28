@@ -8,7 +8,7 @@ from pywebpush import webpush, WebPushException
 from datetime import datetime
 
 PORT = 80
-PUBLIC_DIR = "public"
+PUBLIC_DIR = "Z:/public"
 CHAT_FILE = "chat.json"
 LOG_FILE = "logs.json"
 FILES_METADATA = "files.json"
@@ -93,8 +93,14 @@ class MyHandler(http.server.SimpleHTTPRequestHandler):
             client_ip = self.client_address[0]
             with open(USERS_FILE, "r") as f:
                 users = json.load(f)
-            # Si no existe, se puede retornar un usuario por defecto
-            user_info = users.get(client_ip, {"username": "Anonimo", "subscription": None, "notifications": False})
+            # Si el usuario no existe, se retorna un usuario por defecto
+            user_info = users.get(client_ip, {
+                "username": "Anonimo",
+                "subscription": None,
+                "notifications": False
+            })
+            # Agregamos la IP del cliente a la respuesta
+            user_info["client_ip"] = client_ip
             self.send_response(200)
             self.send_header("Content-type", "application/json")
             self.end_headers()
@@ -343,6 +349,6 @@ class MyHandler(http.server.SimpleHTTPRequestHandler):
             json.dump(logs, f)
 
 Handler = MyHandler
-with socketserver.TCPServer(("", PORT), Handler) as httpd:
+with socketserver.TCPServer(("192.168.100.252", PORT), Handler) as httpd:
     print("Servidor corriendo en el puerto", PORT)
     httpd.serve_forever()
