@@ -8,7 +8,7 @@ from pywebpush import webpush, WebPushException
 from datetime import datetime
 
 PORT = 80
-PUBLIC_DIR = "Z:/public"
+PUBLIC_DIR = "public"
 CHAT_FILE = "chat.json"
 LOG_FILE = "logs.json"
 FILES_METADATA = "files.json"
@@ -349,6 +349,6 @@ class MyHandler(http.server.SimpleHTTPRequestHandler):
             json.dump(logs, f)
 
 Handler = MyHandler
-with socketserver.TCPServer(("192.168.100.252", PORT), Handler) as httpd:
+with socketserver.TCPServer(("", PORT), Handler) as httpd: # Aquí poner antes de port en las comillas vacías una dirección IP personalizada si se desea
     print("Servidor corriendo en el puerto", PORT)
     httpd.serve_forever()
